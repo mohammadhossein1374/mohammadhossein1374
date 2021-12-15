@@ -1,0 +1,12 @@
+{% load rest_framework %}
+
+<html><body>
+
+<h1>owner - {{ owner.name }} national_code: {{owner.national_code}}</h1>
+<form action="{% url 'owners:list' %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <input type="submit" value="Save">
+</form>
+
+</body></html>
