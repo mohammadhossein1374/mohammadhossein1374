@@ -17,8 +17,8 @@ from .pagination import CarsPagination
 
 
 class CarView(generics.ListAPIView):
-    # renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
-    # template_name = 'cars.html'
+    renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
+    template_name = 'car_view.html'
     serializer_class = CarSerializer
     pagination_class = CarsPagination
 
@@ -40,19 +40,19 @@ class CarView(generics.ListAPIView):
         
         return qs
 
-    # def get(self, request, *args, **kwargs):
-    #     cars = self.get_serializer(self.get_queryset(), many=True)
-        # if request.accepted_renderer.format == 'html':
-        #     serializer = CarFilterSerializer()
-        #     context = {"serializer":serializer, 'cars': self.get_queryset()}
-        #     return Response(status=status.HTTP_200_OK, data=context)
-        # return Response(status=status.HTTP_200_OK,data=cars.data)
+    def get(self, request, *args, **kwargs):
+        cars = self.get_serializer(self.get_queryset(), many=True)
+        if request.accepted_renderer.format == 'html':
+            serializer = CarFilterSerializer()
+            context = {"serializer":serializer, 'cars': self.get_queryset()}
+            return Response(status=status.HTTP_200_OK, data=context)
+        return Response(status=status.HTTP_200_OK,data=cars.data)
     
 
 class CarCreate(generics.GenericAPIView):
     serializer_class = CarSerializer
     permission_classes = [permissions.IsAdminUser]
-
+    
     def get(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
 
@@ -71,8 +71,19 @@ class CarCreate(generics.GenericAPIView):
 
 class CarViewSomeInfo(generics.ListAPIView):
 
+    renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
+    template_name = 'cars_list.html'
+
     serializer_class = NodeSerializer
     pagination_class = CarsPagination
+
+    def get(self, request, *args, **kwargs):
+        locations = self.get_serializer(self.get_queryset(), many=True)
+        if request.accepted_renderer.format == 'html':
+            serializer = CarFilterSerializer()
+            context = {"serializer":serializer, 'locations': self.get_queryset()}
+            return Response(status=status.HTTP_200_OK, data=context)
+        return Response(status=status.HTTP_200_OK,data=locations.data)
 
     def get_queryset(self):
         city_name = self.request.query_params.get('city')

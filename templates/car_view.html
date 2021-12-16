@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'fixed-header-table/Table_Fixed_Header/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fixed-header-table/Table_Fixed_Header/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fixed-header-table/Table_Fixed_Header/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fixed-header-table/Table_Fixed_Header/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fixed-header-table/Table_Fixed_Header/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fixed-header-table/Table_Fixed_Header/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fixed-header-table/Table_Fixed_Header/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fixed-header-table/Table_Fixed_Header/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				{% if cars %}
+				<div class="table100 ver3 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">Car id</th>
+									<th class="cell100 column2">Owner</th>
+									<th class="cell100 column3">Type</th>
+									<th class="cell100 column4">Color</th>
+									<th class="cell100 column5">Length</th>
+                                    <th class="cell100 column5">Load volume</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+								{% for car in cars %}
+								<tr class="row100 body">
+									<td class="cell100 column1">{{car.id}}</td>
+									<td class="cell100 column2">{{car.owner.national_code}}</td>
+									<td class="cell100 column3">{{car.type}}</td>
+									<td class="cell100 column4">{{car.color}}</td>
+									<td class="cell100 column5">{{car.length}}</td>
+                                    {% if car.load_volume %}
+                                        <td class="cell100 column5">{{car.load_volume}}</td>
+                                    {% else %}
+                                        <td class="cell100 column5">--</td>
+                                    {% endif %}
+
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+
+<!--===============================================================================================-->	
+	<script src="{% static 'fixed-header-table/Table_Fixed_Header/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'fixed-header-table/Table_Fixed_Header/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'fixed-header-table/Table_Fixed_Header/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'fixed-header-table/Table_Fixed_Header/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'fixed-header-table/Table_Fixed_Header/vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'fixed-header-table/Table_Fixed_Header/js/main.js' %}"></script>
+
+</body>
+</html>
